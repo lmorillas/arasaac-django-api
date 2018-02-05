@@ -1,0 +1,9 @@
+*.pyc
+env
+tmp
+.vscode
+carga_imagenes.py
+db.sqlite3
+lista_imagenes.json
+__pycache__
+tmp
