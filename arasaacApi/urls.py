@@ -14,28 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from rest_framework import routers
-from rest_framework_mongoengine import routers as mongorouters
 from arasaacApi.imagesApi import views
 from rest_framework.schemas import get_schema_view
-
-
-
-
-
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+from rest_framework.renderers import CoreJSONRenderer
+from rest_framework.documentation import include_docs_urls
+from arasaacApi.imagesApi import urls as arasaac_urls
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 
-schema_view = get_schema_view(title='Arasaac API')
+#schema_view = get_schema_view(title='Arasaac API')
+
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Arasaac API')
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    #url(r'^api/', include(router.urls)),
+    url(r'^docs/', include_docs_urls(title="Arasaac API", 
+        description="Arasaac API documentation", 
+        public=False)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include('arasaacApi.imagesApi.urls')),
-    url(r'^schema/$', schema_view),
+    url(r'^schema/$', schema_view, name="swagger schema"),
 ]

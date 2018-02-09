@@ -9,7 +9,6 @@ from mongoengine import Document, EmbeddedDocument, fields
 class Author(Document):
     pass
 
-
 class Image(Document):
     path = fields.StringField(required=True)
     tags = fields.ListField(fields.StringField(), required=False, null=True)
